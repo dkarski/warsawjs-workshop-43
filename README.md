@@ -1,2 +1,2 @@
-# warsawjs-workshop-41
-WarsawJs Workshop#41 - JavaScript basics
+# warsawjs-workshop-43
+WarsawJS Workshop#43
