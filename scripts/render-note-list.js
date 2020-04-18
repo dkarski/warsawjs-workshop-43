@@ -1,6 +1,5 @@
-(function(window){
-  function renderNotes(element, {state}) {
-    element.innerHTML = `
+function renderNotes(element, {state}) {
+  element.innerHTML = `
         <ul class="note-list__list">
             ${state.notes.map((note, index) => `   
               <li class="note-list__list__item ${state.activeNoteIndex === index && 'note-list__list__item--active'}">
@@ -10,10 +9,10 @@
             `).join('')}
         </ul>
       `
-  }
+}
 
-  function renderNoteList(element, {state}) {
-    element.innerHTML = `
+export function renderNoteList(element, {state}) {
+  element.innerHTML = `
       <div class="note-list">
         <div class="note-list__heading">
             <div class="note-list__heading__content-container">
@@ -35,8 +34,5 @@
         <div class="note-list__list-container"></div>
       </div>
     `
-    renderNotes(document.querySelector('.note-list__list-container'), {state})
-  }
-
-  window.app.renderNoteList = renderNoteList;
-})(window);
+  renderNotes(document.querySelector('.note-list__list-container'), {state})
+}

@@ -1,24 +1,26 @@
-(function () {
-  const element = null || document.getElementById("app");
-  const notes = [{
-    title: "",
-    content: "",
-    updatedAt: Date.now()
-  }]
+import {renderNoteList} from "./render-note-list.js";
+import {renderNoteEditor} from "./render-note-editor.js";
 
-  let state = {notes, activeNoteIndex: 0};
+const element = null || document.getElementById("app");
+const notes = [{
+  title: "",
+  content: "",
+  updatedAt: Date.now()
+}]
 
-  window.addEventListener('DOMContentLoaded', render());
+let state = {notes, activeNoteIndex: 0};
 
-  function render() {
-    element.innerHTML = `
+window.addEventListener('DOMContentLoaded', render());
+
+function render() {
+  element.innerHTML = `
         <div class="container">
           <div class="note-list-container"></div>
           <div class="note-editor-container"></div>
         </div>
     `;
-    app.renderNoteList(document.querySelector('.note-list-container'), {state})
-    app.renderNoteEditor(document.querySelector('.note-editor-container'), {state})
-  }
-})();
+  renderNoteList(document.querySelector('.note-list-container'), {state})
+  renderNoteEditor(document.querySelector('.note-editor-container'), {state})
+}
+
 

@@ -1,6 +1,5 @@
-(function (window) {
-  function renderNoteEditor(element, {state}) {
-    element.innerHTML = `
+export function renderNoteEditor(element, {state}) {
+  element.innerHTML = `
       <div class="note-editor">
         <div class="note-editor__heading">
             <p class="note-editor__heading__updateAt">${'Ostatnia zmiana: ' + new Date(state.notes[state.activeNoteIndex].updatedAt).toLocaleString("pl-PL")}</p>
@@ -11,7 +10,4 @@
         </div>
       </div>
     `
-  }
-
-  window.app.renderNoteEditor = renderNoteEditor;
-})(window);
+}
