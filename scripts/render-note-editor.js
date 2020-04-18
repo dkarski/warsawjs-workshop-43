@@ -1,5 +1,5 @@
 (function (window) {
-  function renderNoteEditor(element, {state}) {
+  function renderNoteEditor(element, {state, handleTitleChange, handleContentChange}) {
     element.innerHTML = `
       <div class="note-editor">
         <div class="note-editor__heading">
@@ -11,6 +11,8 @@
         </div>
       </div>
     `
+    element.querySelector(".note-editor__fields-container__title").addEventListener("change", handleTitleChange);
+    element.querySelector(".note-editor__fields-container__content").addEventListener("change", handleContentChange);
   }
 
   window.app.renderNoteEditor = renderNoteEditor;

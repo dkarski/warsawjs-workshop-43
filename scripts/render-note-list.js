@@ -1,5 +1,5 @@
 (function(window){
-  function renderNotes(element, {state}) {
+  function renderNotes(element, {state, handleNoteClick}) {
     element.innerHTML = `
         <ul class="note-list__list">
             ${state.notes.map((note, index) => `   
@@ -10,9 +10,13 @@
             `).join('')}
         </ul>
       `
+
+    element.querySelectorAll(".note-list__list__item").forEach((note, index) => {
+      note.addEventListener("click", handleNoteClick(index));
+    })
   }
 
-  function renderNoteList(element, {state}) {
+  function renderNoteList(element, {state, handleNoteClick, handleAddButtonClick}) {
     element.innerHTML = `
       <div class="note-list">
         <div class="note-list__heading">
@@ -35,7 +39,9 @@
         <div class="note-list__list-container"></div>
       </div>
     `
-    renderNotes(document.querySelector('.note-list__list-container'), {state})
+
+    renderNotes(document.querySelector('.note-list__list-container'), {state, handleNoteClick})
+    element.querySelector(".note-list__heading__button-add").addEventListener("click", handleAddButtonClick);
   }
 
   window.app.renderNoteList = renderNoteList;
