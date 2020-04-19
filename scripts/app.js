@@ -12,14 +12,8 @@
 
   function render() {
     if (state.isLoading) {
-      element.innerHTML = `
-        <div class="note-spinner">
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-        </div>
-      `
+      element.innerHTML = `<div class="note-spinner-container"></div>`
+      app.renderSpinner(document.querySelector('.note-spinner-container'))
     } else {
       element.innerHTML = `
         <div class="container">
