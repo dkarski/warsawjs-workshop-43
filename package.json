@@ -1,0 +1,22 @@
+{
+  "name": "warsawjs-workshop-43",
+  "version": "1.0.0",
+  "main": "app.js",
+  "directories": {
+    "example": "examples"
+  },
+  "scripts": {
+    "start": "npx http-server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dkarski/warsawjs-workshop-43.git"
+  },
+  "author": "dkarski",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dkarski/warsawjs-workshop-43/issues"
+  },
+  "homepage": "https://github.com/dkarski/warsawjs-workshop-43#readme",
+  "dependencies": {}
+}
