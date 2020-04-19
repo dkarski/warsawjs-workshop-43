@@ -6,5 +6,13 @@
       .then(response => response.json());
   }
 
-  window.app.noteService = {getAll};
+  function addNewOne(data = {}) {
+    return fetch(apiUrl, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(data)
+    }).then(response => response.json());
+  }
+
+  window.app.noteService = {getAll, addNewOne};
 })(window);
