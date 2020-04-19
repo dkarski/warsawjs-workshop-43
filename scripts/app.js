@@ -1,28 +1,41 @@
 (function () {
   const element = null || document.getElementById("app");
-  const notes = [{
-    title: "",
-    content: "",
-    updatedAt: Date.now()
-  }]
+  const notes = [];
 
-  let state = {notes, activeNoteIndex: 0};
+  let state = {notes, activeNoteIndex: 0, isLoading: true};
 
   window.addEventListener('DOMContentLoaded', render());
+  fetch(`https://api.luck.org.pl/api/v2/notes?userId=0`)
+    .then(response => response.json())
+    .then(response => {
+      state = {...state, notes: response.notes, isLoading: false};
+      render();
+    });
 
   function render() {
-    element.innerHTML = `
+    if (state.isLoading) {
+      element.innerHTML = `
+        <div class="note-spinner">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+      `
+    } else {
+      element.innerHTML = `
         <div class="container">
           <div class="note-list-container"></div>
           <div class="note-editor-container"></div>
         </div>
     `;
-    app.renderNoteList(document.querySelector('.note-list-container'), {state, handleNoteClick, handleAddButtonClick})
-    app.renderNoteEditor(document.querySelector('.note-editor-container'), {
-      state,
-      handleTitleChange: makeHandleChange("title"),
-      handleContentChange: makeHandleChange("content")
-    })
+      app.renderNoteList(document.querySelector('.note-list-container'), {state, handleNoteClick, handleAddButtonClick})
+      app.renderNoteEditor(document.querySelector('.note-editor-container'), {
+        state,
+        handleTitleChange: makeHandleChange("title"),
+        handleContentChange: makeHandleChange("content")
+      })
+    }
   }
 
   function handleNoteClick(index) {
@@ -36,6 +49,7 @@
     const newNote = {
       title: "",
       content: "",
+      userId: "0"
     };
     state = {
       ...state, notes: [newNote, ...state.notes], activeNoteIndex: 0
