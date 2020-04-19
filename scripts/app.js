@@ -5,12 +5,10 @@
   let state = {notes, activeNoteIndex: 0, isLoading: true};
 
   window.addEventListener('DOMContentLoaded', render());
-  fetch(`https://api.luck.org.pl/api/v2/notes?userId=0`)
-    .then(response => response.json())
-    .then(response => {
-      state = {...state, notes: response.notes, isLoading: false};
-      render();
-    });
+  window.app.noteService.getAll("0").then(response => {
+    state = {...state, notes: response.notes, isLoading: false};
+    render();
+  })
 
   function render() {
     if (state.isLoading) {
