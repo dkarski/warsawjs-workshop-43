@@ -4,6 +4,10 @@
 
     let state = {notes, activeNoteIndex: 0, isLoading: true};
 
+    setInterval(function () {
+      updateOne(state.notes[state.activeNoteIndex])
+    }, 10000);
+
     window.addEventListener('DOMContentLoaded', render());
     window.app.noteService.getAll("0").then(response => {
       state = {...state, notes: response.notes, isLoading: false};
@@ -41,17 +45,19 @@
 
     function makeHandleChange(stateKey) {
       return function ({target: {value}}) {
-        const updatedNote = {...state.notes[state.activeNoteIndex], [stateKey]: value}
-
-        window.app.noteService.updateOne(updatedNote.id, updatedNote)
-          .then(response => {
-            const noteIndex = state.notes.findIndex(note => note.id === response.id)
-            const newNotes = [...state.notes]
-            newNotes[noteIndex] = {...newNotes[noteIndex], ...response}
-            state = {...state, notes: newNotes}
-            render();
-          });
+        updateOne({...state.notes[state.activeNoteIndex], [stateKey]: value})
       }
+    }
+
+    function updateOne(updatedNote) {
+      window.app.noteService.updateOne(updatedNote.id, updatedNote)
+        .then(response => {
+          const noteIndex = state.notes.findIndex(note => note.id === response.id)
+          const newNotes = [...state.notes]
+          newNotes[noteIndex] = {...newNotes[noteIndex], ...response}
+          state = {...state, notes: newNotes}
+          render();
+        });
     }
   }
 
