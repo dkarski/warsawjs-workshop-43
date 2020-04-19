@@ -14,5 +14,13 @@
     }).then(response => response.json());
   }
 
-  window.app.noteService = {getAll, addNewOne};
+  function updateOne(id, data = {}) {
+    return fetch(`${apiUrl}/${id}`, {
+      method: 'PUT',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(data)
+    }).then(response => response.json());
+  }
+
+  window.app.noteService = {getAll, addNewOne, updateOne};
 })(window);

@@ -41,11 +41,16 @@
 
     function makeHandleChange(stateKey) {
       return function ({target: {value}}) {
-        const updatedNote = {...state.notes[state.activeNoteIndex], [stateKey]: value};
-        const newNotes = [...state.notes];
-        newNotes[state.activeNoteIndex] = updatedNote;
-        state = {...state, notes: newNotes};
-        render();
+        const updatedNote = {...state.notes[state.activeNoteIndex], [stateKey]: value}
+
+        window.app.noteService.updateOne(updatedNote.id, updatedNote)
+          .then(response => {
+            const noteIndex = state.notes.findIndex(note => note.id === response.id)
+            const newNotes = [...state.notes]
+            newNotes[noteIndex] = {...newNotes[noteIndex], ...response}
+            state = {...state, notes: newNotes}
+            render();
+          });
       }
     }
   }
