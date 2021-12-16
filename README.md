@@ -1,8 +1,8 @@
 # warsawjs-workshop-43
 WarsawJS Workshop#43
 
-## slides - live
-  - https://slides.com/danielkarski/walidacja-warsztatu/live
+## slides
+  - https://slides.com/danielkarski/walidacja-warsztatu
 
 ## Aplikacja
 
