@@ -1,41 +1,5 @@
-(function () {
-  const element = null || document.getElementById("app");
-  const notes = [{
-    title: "",
-    content: "",
-    updatedAt: Date.now()
-  }]
-
-  let state = {notes, activeNoteIndex: 0};
-
-  window.addEventListener('DOMContentLoaded', render());
-
-  function render() {
-    element.innerHTML = `
-        <div class="container">
-          <div class="note-list-container"></div>
-          <div class="note-editor-container"></div>
-        </div>
-    `;
-    renderNoteList(document.querySelector('.note-list-container'))
-    renderNoteEditor(document.querySelector('.note-editor-container'))
-  }
-
-  function renderNoteEditor(element) {
-    element.innerHTML = `
-      <div class="note-editor">
-        <div class="note-editor__heading">
-            <p class="note-editor__heading__updateAt">${'Ostatnia zmiana: ' + new Date(state.notes[state.activeNoteIndex].updatedAt).toLocaleString("pl-PL")}</p>
-        </div>
-        <div class="note-editor__fields-container">
-          <textarea placeholder="Tytuł" class="note-editor__fields-container__title" rows="1">${state.notes[state.activeNoteIndex].title}</textarea>
-          <textarea placeholder="Zacznij pisać" class="note-editor__fields-container__content" rows="1">${state.notes[state.activeNoteIndex].content}</textarea>
-        </div>
-      </div>
-    `
-  }
-
-  function renderNotes(element) {
+(function(window){
+  function renderNotes(element, {state, handleNoteClick}) {
     element.innerHTML = `
         <ul class="note-list__list">
             ${state.notes.map((note, index) => `   
@@ -46,9 +10,13 @@
             `).join('')}
         </ul>
       `
+
+    element.querySelectorAll(".note-list__list__item").forEach((note, index) => {
+      note.addEventListener("click", handleNoteClick(index));
+    })
   }
 
-  function renderNoteList(element) {
+  function renderNoteList(element, {state, handleNoteClick, handleAddButtonClick}) {
     element.innerHTML = `
       <div class="note-list">
         <div class="note-list__heading">
@@ -71,7 +39,10 @@
         <div class="note-list__list-container"></div>
       </div>
     `
-    renderNotes(document.querySelector('.note-list__list-container'), {state})
-  }
-})();
 
+    renderNotes(document.querySelector('.note-list__list-container'), {state, handleNoteClick})
+    element.querySelector(".note-list__heading__button-add").addEventListener("click", handleAddButtonClick);
+  }
+
+  window.app.renderNoteList = renderNoteList;
+})(window);
